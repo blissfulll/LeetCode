@@ -8,34 +8,42 @@
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
 
-        path_sum = [root.val]
+        path_sum = []
         res = [0]
 
         def dfsRec(root, path_sum, res):
 
-            print(path_sum)
+            if not root:
+                return
 
-            node_l, node_r = None, None
-            
+            # pop_count = 0
+            tmp_path_sum = []
+            for val in path_sum:
+                tmp_sum = root.val + val
+                tmp_path_sum.append(tmp_sum)
+                if tmp_sum == targetSum:
+                    res[0] += 1
+                # pop_count += 1
+            tmp_path_sum.append(root.val)
+            if root.val == targetSum:
+                res[0] += 1
+            path_sum = tmp_path_sum
+            # print(path_sum)
+
+            # print(path_sum)
+            # c_1 = path_sum.copy()
+
             if hasattr(root, "left"):
                 node_l = root.left
-                for val in path_sum:
-                    tmp_sum = node_l.val + val
-                    path_sum.append(tmp_sum)
-                    if tmp_sum == targetSum:
-                        res[0] += 1
-                path_sum.append(node_l.val)
                 dfsRec(node_l, path_sum, res)
 
-            if hasattr(root, "left"):
+            # # c_2 = path_sum.copy()
+            
+            if hasattr(root, "right"):
                 node_r = root.right
-                for val in path_sum:
-                    tmp_sum = node_r.val + val
-                    path_sum.append(tmp_sum)
-                    if tmp_sum == targetSum:
-                        res[0] += 1
-                path_sum.append(node_r.val)
-                dfsRec(node_r, path_sum, res)    
+                # for i in range(pop_count):
+                #     path_sum.pop()
+                dfsRec(node_r, path_sum, res)
             
             return
 
