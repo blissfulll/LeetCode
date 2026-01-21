@@ -1,0 +1,35 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        f_end = head
+        old = head
+        if hasattr(head, "next"):
+            s_head = head.next
+        else:
+            return head
+        curr = head
+        
+        while hasattr(curr, "next"):
+            temp = curr.next
+            if hasattr(temp, "next"):
+                curr.next = temp.next
+            else:
+                f_end = curr
+                break
+            
+            if hasattr(curr.next, "next"):
+                temp.next = curr.next.next
+            else:
+                f_end = curr
+                break
+            curr = curr.next
+            f_end = curr
+                
+        f_end.next = s_head
+
+        return old
