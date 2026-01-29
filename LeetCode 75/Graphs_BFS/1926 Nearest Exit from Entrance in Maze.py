@@ -9,60 +9,66 @@ class Solution:
                 if row == 0 or row == len(maze)-1 or \
                     col == 0 or col == len(maze[0])-1:
                     return True
-
             return False
         
         def check_cell(loc):
 
+            depth = loc[1]
+            loc = loc[0]
+
             if check_exit(loc):
                 return True
 
-            res = []
+            res = [()]
 
             row = loc[0]
             col = loc[1]
 
             if row-1 >= 0 and maze[row-1][col] != "+":
-                res.append([row-1, col])
+                res.append(([row-1, col], depth))
             if row+1 < len(maze) and maze[row+1][col] != "+":
-                res.append([row+1, col])
+                res.append(([row+1, col], depth))
             if col-1 >= 0 and maze[row][col-1] != "+":
-                res.append([row, col-1])
+                res.append(([row, col-1], depth))
             if col+1 < len(maze[0]) and maze[row][col+1] != "+":
-                res.append([row, col+1])
+                res.append(([row, col+1], depth))
 
             return res
 
-        depth = -1
+        depth = 0
         loc = (entrance, 0)
         que = [loc]
         visited = []
         ans = []
 
-        def bfsRec(loc, depth):
+        def bfsRec(loc):
             # print(loc)
             visited.append(loc[0])
             que.pop(0)
-            depth+=1
+            # depth+=1
             res = check_cell(loc)
             # print(res, depth)
             if res == True:
                 # print("HHAHAHSHAHA")
-                ans.append(depth)
+                ans.append(loc[1])
             else:
-
-                for loc in res:
-                    if loc not in visited:
-                        que.append(loc)
+                if res == [()]:
+                    pass
+                else:
+                    for loc in res:
+                        print(loc)
+                        if loc[0] not in visited:
+                            que.append((loc[0], loc[1]+1))
 
                 if que:
-                    bfsRec(que[0], depth)
+                    bfsRec(que[0])
         
-        bfsRec(loc, depth)
+        bfsRec(loc)
 
         if ans:
             return ans[0]
 
         return -1
+
 
 
