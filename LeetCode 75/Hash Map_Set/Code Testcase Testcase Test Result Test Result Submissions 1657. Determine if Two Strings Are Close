@@ -1,0 +1,44 @@
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if len(word1) == len(word2):
+            d1 = {}
+            d2 = {}
+            d3 = {}
+            d4 = {}
+            for w in word1:
+                if w not in d1:
+                    d1[w] = 1
+                else: 
+                    d1[w] += 1
+            for w in word2:
+                if w not in d2:
+                    d2[w] = 1
+                else:
+                    d2[w] += 1
+
+            # print(d1, d2)
+
+            for n in d1.values():
+                if n not in d3:
+                    d3[n] = 1
+                else:
+                    d3[n] += 1
+                            
+            for n in d2.values():
+                if n not in d4:
+                    d4[n] = 1
+                else:
+                    d4[n] += 1
+                                                    
+            # print(d3, d4)
+
+            if set(d1.keys()) == set(d2.keys()):
+                if set(d3.keys()) == set(d4.keys()):
+                    for n1 in d3.keys():
+                        if n1 not in d4:
+                            return False
+                        if d3[n1] != d4[n1]:
+                            return False
+                    return True
+        
+        return False
