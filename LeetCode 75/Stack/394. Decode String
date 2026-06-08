@@ -1,0 +1,100 @@
+class Solution:
+
+    def decodeString(self, s: str) -> str:
+        
+        # def rec(idx):
+            
+        stack = []
+        
+        for idx, char in enumerate(s):
+            if char == "]":
+                i = -1
+                tmp_s = ""
+                while not stack[-1] == "[":
+                    tmp_s = stack[-1] + tmp_s
+                    stack.pop()
+                stack.pop()
+                stack[-1] = int(stack[-1]) * tmp_s 
+            elif char.isdigit():
+                if len(stack) == 0:
+                    stack.append(char)
+                elif stack[-1].isdigit():
+                    stack[-1] += char 
+                else:
+                    stack.append(char)
+            else:
+                stack.append(char)
+
+        ans = ""
+        for word in stack:
+            ans += word
+
+        return ans
+
+        # ans = [""]
+        # tmp_s = ans[0]
+
+        # def rec(ind) -> str:
+        #     i = ind+2
+        #     char = s[i]
+        #     while char != "]" and i < len(s):
+        #         char = s[i]
+        #         if s[i].isdigit():
+        #             rec(i)
+        #         else:
+        #             tmp_s += char
+        #         i += 1
+        #     return int(s[ind]) * tmp_s
+
+        #     # for i in range(ind+2, len(s)):
+        #     #     if s[i] == "[":
+        #     #         print(i)
+        #     #         rec(i)
+        #     #         ans[0] += rec(i)
+        #     #         # return
+        #     #     elif s[i] == "]":
+        #     #         if ind != -1:
+        #     #             tmp_s = s[ind+1 : i]
+        #     #             print(ind, i)
+        #     #             mult = int(s[ind-1])
+        #     #             print(mult*tmp_s)
+        #     #             return mult*tmp_s
+        #     #     # else:
+        #     #     #     ans[0] += s[i]
+        
+        # for i in range(len(s)):
+        #     if s[i].isdigit():
+        #         rec(i)
+
+        # print(ans[0])
+
+        # return ans[0]
+
+        # s1 = [()]
+        # # s2 = []
+        # new_s = s
+        # mem = []
+
+        # for idx, char in enumerate(s):
+        #     if char == "[":
+        #         s1.append((idx, s[idx-1]))
+        #     elif char == "]":
+        #         multip = int(s1[-1][1])
+        #         index_br = s1[-1][0]
+        #         start = index_br-1
+        #         end = -1 if idx+1 >= len(s) else idx
+        #         # new_s = multip * s[start+2 : end]
+        #         print(start , end, new_s)
+        #         s1.pop()
+        #         mem.append([start, end])
+
+        # # for change in mem:
+        # #     start = change[0]
+        # #     end = change[1]
+        # #     add_s = change[2]
+        # #     new_s += new_s[:start] + add_s + new_s[]                
+
+        
+            
+        # return new_s
+
